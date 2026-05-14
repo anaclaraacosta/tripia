@@ -2,8 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
-import { destinations } from '../src/lib/destinations';
-import { resolveTripImageUrl, ensureImageExists } from '../src/lib/tripImages';
+import { destinations } from '../src/lib/destinations.js';
+import { resolveTripImageUrl, ensureImageExists } from '../src/lib/tripImages.js';
 
 if (process.env.NODE_ENV !== 'production') {
   dotenv.config();

@@ -1,4 +1,4 @@
-import { destinations } from './destinations';
+import { destinations } from './destinations.js';
 
 export interface ResolveImageParams {
   destination: string | { imageUrl?: string; [key: string]: unknown } | null;
