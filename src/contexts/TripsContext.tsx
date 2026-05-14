@@ -2,7 +2,6 @@ import { useState, useEffect, useMemo } from 'react';
 import type { ReactNode } from 'react';
 import { TripsContext, type UserTrip, type Participant, type Expense, type ItineraryItem, type TransportItem } from './useTrips';
 import { useAuth } from './useAuth';
-import { resolveTripImageUrl } from '../lib/tripImages';
 
 export function TripsProvider({ children }: { children: ReactNode }) {
   const { user } = useAuth();
@@ -22,18 +21,7 @@ export function TripsProvider({ children }: { children: ReactNode }) {
   }, [trips, user]);
 
   const addTrip = (tripData: Omit<UserTrip, 'id' | 'createdAt'>) => {
-    let finalImageUrl = tripData.imageUrl;
-    const isGenericFallback = !finalImageUrl || finalImageUrl.trim() === "" || finalImageUrl.includes("1469854523086-cc02fe5d8800");
-    
-    if (isGenericFallback) {
-      finalImageUrl = resolveTripImageUrl({
-        destination: tripData.destination,
-        destinationCity: tripData.destinationCity || (typeof tripData.destination === 'string' ? tripData.destination.split(',')[0] : ''),
-        destinationCountry: tripData.destinationCountry || "",
-        destinationObj: null,
-        realPlaces: []
-      });
-    }
+    const finalImageUrl = tripData.imageUrl || "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80";
 
     const newTrip: UserTrip = {
       ...tripData,
