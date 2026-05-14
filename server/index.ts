@@ -296,6 +296,10 @@ app.post('/api/ai/generate-trip', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`API Server running on port ${PORT}`);
-});
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`API Server running on port ${PORT}`);
+  });
+}
+
+export default app;

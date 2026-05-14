@@ -89,7 +89,7 @@ export default function CreateTrip({ isAI = false }: { isAI?: boolean }) {
 
       if (isAI) {
         try {
-          const res = await fetch(`http://localhost:${import.meta.env.VITE_API_PORT || 8787}/api/ai/generate-trip`, {
+          const res = await fetch(`/api/ai/generate-trip`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -110,7 +110,7 @@ export default function CreateTrip({ isAI = false }: { isAI?: boolean }) {
               console.log("Server fallback triggered, using local generator.");
               if (destinationObj && (destinationObj.latitude || destinationObj.longitude)) {
                 try {
-                  const pRes = await fetch(`http://localhost:${import.meta.env.VITE_API_PORT || 8787}/api/places/search?lat=${destinationObj.latitude}&lon=${destinationObj.longitude}&preferences=${encodeURIComponent(preferences)}`);
+                  const pRes = await fetch(`/api/places/search?lat=${destinationObj.latitude}&lon=${destinationObj.longitude}&preferences=${encodeURIComponent(preferences)}`);
                   if (pRes.ok) realPlaces = await pRes.json();
                 } catch (err) {
                   console.error("Failed to fetch places", err);
